@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.3.0 — 2026-04-14
+
+### Runtime player
+
+- **`TonePlayer` class** — synthesize tones at runtime using the Web Audio API (works with `react-native-audio-api` on mobile or native `AudioContext` on web)
+- `playNote(index)` — play any of the 6 button tones
+- `playSuccess()` — ascending pentatonic arpeggio
+- `startAmbient()` / `stopAmbient()` — looping background drone with fade in/out
+- `setPack(pack)` — switch sound packs instantly, no reload
+- `setVolume(volume)` — master volume control
+- Zero audio assets needed — all synthesis happens from pack recipes in real time
+
+### Package
+
+- Added `exports` map for clean imports (`toneweaver/player`, `toneweaver/packs`, etc.)
+- `react-native-audio-api` as optional peer dependency
+- TypeScript declarations included
+
 ## 0.2.0 — 2026-04-14
 
 ### Sound quality

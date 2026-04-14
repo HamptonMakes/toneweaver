@@ -1,8 +1,16 @@
 {
   "name": "toneweaver",
-  "version": "0.1.0",
-  "description": "Generate tonal sound packs for games and apps",
+  "version": "0.3.0",
+  "description": "Generate tonal sound packs for games and apps — offline or at runtime",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./player": "./dist/player.js",
+    "./packs": "./dist/packs.js",
+    "./types": "./dist/types.js",
+    "./scales": "./dist/scales.js"
+  },
   "bin": {
     "toneweaver": "dist/index.js"
   },
@@ -19,10 +27,20 @@
     "game-audio",
     "tone",
     "pentatonic",
-    "sound-effects"
+    "sound-effects",
+    "react-native",
+    "web-audio"
   ],
   "author": "Hampton Catlin",
   "license": "MIT",
+  "peerDependencies": {
+    "react-native-audio-api": ">=0.4.0"
+  },
+  "peerDependenciesMeta": {
+    "react-native-audio-api": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "ts-node": "^10.9.0",

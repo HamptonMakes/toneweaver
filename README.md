@@ -4,7 +4,35 @@ Generate tonal sound packs for games and apps. Pure math — no samples, no depe
 
 Toneweaver creates sets of musically harmonious tones built on **pentatonic scales**, so any combination of sounds played together feels pleasant and relaxing. Each "pack" is a different timbre recipe — singing bowls, crystal bells, bamboo, and more.
 
-## Quick Start
+**Two ways to use it:**
+- **Offline** — Generate WAV files with the CLI
+- **Runtime** — Synthesize tones live in React Native or web apps (zero audio assets!)
+
+## Runtime Player (React Native / Web)
+
+```bash
+npm install toneweaver react-native-audio-api
+```
+
+```typescript
+import { AudioContext } from 'react-native-audio-api';
+import { TonePlayer } from 'toneweaver/player';
+import { singingBowls } from 'toneweaver/packs';
+
+const ctx = new AudioContext();
+const player = new TonePlayer(ctx, singingBowls);
+
+player.playNote(0);       // play button tone (0–5)
+player.playSuccess();     // ascending win arpeggio
+player.startAmbient();    // background drone (looping)
+player.stopAmbient();     // fade out drone
+player.setPack(celeste);  // switch packs instantly
+player.setVolume(0.5);    // master volume
+```
+
+No audio files needed — sounds are synthesized from the pack recipe in real time.
+
+## CLI / Offline Generation
 
 ```bash
 npm install
