@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>toneweaver preview</title>
+  <style>
+    body { background: #1a1a2e; color: #fff; font-family: system-ui; display: flex; flex-direction: column; align-items: center; padding: 40px; }
+    h1 { font-size: 1.4em; margin-bottom: 8px; }
+    select { background: #2a2a4e; color: #fff; border: 1px solid #444; padding: 8px 16px; border-radius: 6px; font-size: 1em; margin-bottom: 24px; }
+    .buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    button.tone { width: 120px; height: 120px; border: none; border-radius: 16px; font-size: 1.2em; font-weight: bold; cursor: pointer; transition: transform 0.1s, filter 0.1s; }
+    button.tone:active { transform: scale(0.93); filter: brightness(0.8); }
+    .extras { display: flex; gap: 12px; margin-top: 24px; }
+    .extras button { background: #2a2a4e; color: #fff; border: 1px solid #444; padding: 10px 20px; border-radius: 8px; font-size: 0.95em; cursor: pointer; }
+    .extras button:hover { background: #3a3a5e; }
+    .extras button.active { border-color: #7c5cbf; background: #3a2a6e; }
+    .hint { margin-top: 20px; color: #888; font-size: 0.85em; }
+  </style>
+</head>
+<body>
+  <h1>🎶 toneweaver preview</h1>
+  <select id="pack">
+    <option value="singing-bowls">Singing Bowls</option>
+    <option value="crystal-bells">Crystal Bells</option>
+    <option value="soft-keys">Soft Keys</option>
+    <option value="bamboo">Bamboo</option>
+    <option value="celeste">Celeste</option>
+  </select>
+  <div class="buttons">
+    <button class="tone" style="background:#F44A46" onclick="play(0)">1</button>
+    <button class="tone" style="background:#F19607" onclick="play(1)">2</button>
+    <button class="tone" style="background:#F5E619;color:#333" onclick="play(2)">3</button>
+    <button class="tone" style="background:#5FC869" onclick="play(3)">4</button>
+    <button class="tone" style="background:#2BA3D9" onclick="play(4)">5</button>
+    <button class="tone" style="background:#CF6DB2" onclick="play(5)">6</button>
+  </div>
+  <div class="extras">
+    <button onclick="playSuccess()">🏆 Success</button>
+    <button id="ambientBtn" onclick="toggleAmbient()">🌊 Ambient</button>
+  </div>
+  <p class="hint">Click buttons to hear them overlap · toggle ambient for background drone</p>
+  <script>
+    let ambientAudio = null;
+
+    function play(index) {
+      const pack = document.getElementById('pack').value;
+      const audio = new Audio(`output/${pack}/${index}.wav`);
+      audio.play();
+    }
+
+    function playSuccess() {
+      const pack = document.getElementById('pack').value;
+      const audio = new Audio(`output/${pack}/success.wav`);
+      audio.play();
+    }
+
+    function toggleAmbient() {
+      const btn = document.getElementById('ambientBtn');
+      if (ambientAudio) {
+        ambientAudio.pause();
+        ambientAudio = null;
+        btn.classList.remove('active');
+        btn.textContent = '🌊 Ambient';
+        return;
+      }
+      const pack = document.getElementById('pack').value;
+      ambientAudio = new Audio(`output/${pack}/ambient.wav`);
+      ambientAudio.loop = true;
+      ambientAudio.volume = 0.4;
+      ambientAudio.play();
+      btn.classList.add('active');
+      btn.textContent = '🌊 Stop';
+    }
+
+    // Stop ambient when switching packs
+    document.getElementById('pack').addEventListener('change', () => {
+      if (ambientAudio) {
+        ambientAudio.pause();
+        ambientAudio = null;
+        const btn = document.getElementById('ambientBtn');
+        btn.classList.remove('active');
+        btn.textContent = '🌊 Ambient';
+      }
+    });
+  </script>
+</body>
+</html>

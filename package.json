@@ -1,0 +1,31 @@
+{
+  "name": "toneweaver",
+  "version": "0.1.0",
+  "description": "Generate tonal sound packs for games and apps",
+  "main": "dist/index.js",
+  "bin": {
+    "toneweaver": "dist/index.js"
+  },
+  "scripts": {
+    "generate": "ts-node src/index.ts",
+    "build": "tsc",
+    "clean": "rm -rf dist output"
+  },
+  "keywords": [
+    "sound",
+    "audio",
+    "wav",
+    "generator",
+    "game-audio",
+    "tone",
+    "pentatonic",
+    "sound-effects"
+  ],
+  "author": "Hampton Catlin",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.4.0"
+  }
+}
