@@ -107,8 +107,24 @@ Then add it to `ALL_PACKS` and regenerate.
 ## Output Format
 
 - **Format**: WAV (PCM, 16-bit, 44.1 kHz, mono)
-- **Files**: `output/<pack-name>/0.wav` through `5.wav`
+- **Files**: `output/<pack-name>/0.wav` through `5.wav`, plus `success.wav` and `ambient.wav`
 - Ready to use in any game engine or audio framework
+
+## Releasing
+
+1. **Update the version** in `package.json` and add a section to `CHANGELOG.md`
+2. **Commit**:
+   ```bash
+   git add -A && git commit -m "v0.5.0: description of changes"
+   ```
+3. **Tag and push**:
+   ```bash
+   git tag v0.5.0
+   git push && git push --tags
+   ```
+4. GitHub Actions will automatically build and publish to npm.
+
+> **First-time setup**: Add your npm access token as a repository secret named `NPM_TOKEN` in **Settings → Secrets and variables → Actions**.
 
 ## License
 
