@@ -11,22 +11,22 @@ export const singingBowls: PackDefinition = {
   rootNote: NOTES.C3,
   duration: 3.5,
   envelope: {
-    attack: 0.04,
-    decay: 0.3,
-    sustain: 0.35,
+    attack: 0.06,
+    decay: 0.4,
+    sustain: 0.2,
     release: 3.0,
   },
-  lowpassCutoff: 2000,
+  lowpassCutoff: 1600,
   partials: [
     // Fundamental pair (gentle beating)
-    { ratio: 1.0, amplitude: 1.0, phase: 0, decayRate: 0.3 },
-    { ratio: 1.0, amplitude: 0.4, detune: 2, phase: 0.8, decayRate: 0.4 },
+    { ratio: 1.0, amplitude: 0.7, phase: 0, decayRate: 0.3 },
+    { ratio: 1.0, amplitude: 0.3, detune: 2, phase: 0.8, decayRate: 0.4 },
     // Second partial — bowl overtone, decays faster
-    { ratio: 2.71, amplitude: 0.25, phase: 1.2, decayRate: 1.0 },
-    { ratio: 2.71, amplitude: 0.12, detune: 3, phase: 2.0, decayRate: 1.2 },
+    { ratio: 2.71, amplitude: 0.18, phase: 1.2, decayRate: 1.0 },
+    { ratio: 2.71, amplitude: 0.08, detune: 3, phase: 2.0, decayRate: 1.2 },
     // Third partial — fades quickly, just adds initial color
-    { ratio: 4.77, amplitude: 0.08, phase: 0.5, decayRate: 2.0 },
-    { ratio: 4.77, amplitude: 0.05, detune: 4, phase: 1.7, decayRate: 2.5 },
+    { ratio: 4.77, amplitude: 0.05, phase: 0.5, decayRate: 2.0 },
+    { ratio: 4.77, amplitude: 0.03, detune: 4, phase: 1.7, decayRate: 2.5 },
   ],
 };
 
@@ -39,18 +39,17 @@ export const crystalBells: PackDefinition = {
   rootNote: NOTES.G4,
   duration: 2.5,
   envelope: {
-    attack: 0.015,
-    decay: 0.15,
-    sustain: 0.12,
+    attack: 0.03,
+    decay: 0.2,
+    sustain: 0.1,
     release: 2.0,
   },
-  lowpassCutoff: 5000,
+  lowpassCutoff: 3000,
   partials: [
-    { ratio: 1.0, amplitude: 1.0, decayRate: 0.4 },
-    { ratio: 2.0, amplitude: 0.3, decayRate: 1.2 },
-    { ratio: 3.0, amplitude: 0.12, decayRate: 2.5 },
-    { ratio: 4.2, amplitude: 0.05, decayRate: 4.0 },
-    { ratio: 5.4, amplitude: 0.02, decayRate: 6.0 },
+    { ratio: 1.0, amplitude: 1.0, decayRate: 0.5 },
+    { ratio: 2.0, amplitude: 0.2, decayRate: 1.8 },
+    { ratio: 3.0, amplitude: 0.07, decayRate: 3.0 },
+    { ratio: 4.2, amplitude: 0.025, decayRate: 5.0 },
   ],
 };
 
