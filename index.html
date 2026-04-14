@@ -1,55 +1,341 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>toneweaver preview</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>toneweaver - Generate tonal sound packs for games</title>
+  <meta name="description" content="Generate beautiful, musically harmonious sound packs for games and apps. Pure math, zero audio dependencies.">
   <style>
-    body { background: #1a1a2e; color: #fff; font-family: system-ui; display: flex; flex-direction: column; align-items: center; padding: 40px; }
-    h1 { font-size: 1.4em; margin-bottom: 8px; }
-    select { background: #2a2a4e; color: #fff; border: 1px solid #444; padding: 8px 16px; border-radius: 6px; font-size: 1em; margin-bottom: 24px; }
-    .buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    button.tone { width: 120px; height: 120px; border: none; border-radius: 16px; font-size: 1.2em; font-weight: bold; cursor: pointer; transition: transform 0.1s, filter 0.1s; }
-    button.tone:active { transform: scale(0.93); filter: brightness(0.8); }
-    .extras { display: flex; gap: 12px; margin-top: 24px; }
-    .extras button { background: #2a2a4e; color: #fff; border: 1px solid #444; padding: 10px 20px; border-radius: 8px; font-size: 0.95em; cursor: pointer; }
-    .extras button:hover { background: #3a3a5e; }
-    .extras button.active { border-color: #7c5cbf; background: #3a2a6e; }
-    .hint { margin-top: 20px; color: #888; font-size: 0.85em; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0f0f1a;
+      color: #e0e0e8;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .logo {
+      font-size: 2.4em;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #a78bfa, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      color: #8888a0;
+      font-size: 1.05em;
+    }
+
+    /* Pack selector */
+    .pack-selector {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .pack-selector label {
+      display: block;
+      font-size: 0.8em;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6666880;
+      margin-bottom: 8px;
+    }
+
+    select {
+      appearance: none;
+      background: #1a1a2e;
+      color: #e0e0e8;
+      border: 1px solid #2a2a44;
+      padding: 10px 40px 10px 16px;
+      border-radius: 8px;
+      font-size: 1em;
+      font-family: inherit;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888a0' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #a78bfa;
+    }
+
+    /* Tone buttons */
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 380px;
+      margin: 0 auto 28px;
+    }
+
+    button.tone {
+      aspect-ratio: 1;
+      border: none;
+      border-radius: 14px;
+      font-size: 0;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    button.tone:hover {
+      transform: scale(1.04);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    button.tone:active {
+      transform: scale(0.94);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    /* Extra buttons */
+    .extras {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 48px;
+    }
+
+    .extras button {
+      background: #1a1a2e;
+      color: #c0c0d0;
+      border: 1px solid #2a2a44;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 0.9em;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .extras button:hover {
+      border-color: #4a4a6a;
+      color: #fff;
+    }
+
+    .extras button.active {
+      border-color: #a78bfa;
+      background: #1f1a3e;
+      color: #a78bfa;
+    }
+
+    .hint {
+      text-align: center;
+      color: #555568;
+      font-size: 0.82em;
+      margin-top: -20px;
+      margin-bottom: 48px;
+    }
+
+    /* Divider */
+    hr {
+      border: none;
+      border-top: 1px solid #1e1e32;
+      margin: 0 0 40px;
+    }
+
+    /* About section */
+    .about h2 {
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #c0c0d8;
+    }
+
+    .about p {
+      color: #8888a0;
+      font-size: 0.92em;
+      margin-bottom: 16px;
+    }
+
+    .packs-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .pack-item {
+      background: #14142a;
+      border: 1px solid #1e1e32;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
+    .pack-item .name {
+      font-weight: 600;
+      font-size: 0.88em;
+      color: #d0d0e0;
+      margin-bottom: 2px;
+    }
+
+    .pack-item .desc {
+      font-size: 0.78em;
+      color: #666680;
+    }
+
+    .install {
+      background: #14142a;
+      border: 1px solid #1e1e32;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.85em;
+      color: #a78bfa;
+      overflow-x: auto;
+    }
+
+    .install .comment { color: #555568; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding-top: 32px;
+      border-top: 1px solid #1e1e32;
+    }
+
+    .footer a {
+      color: #8888a0;
+      text-decoration: none;
+      font-size: 0.88em;
+      transition: color 0.15s;
+    }
+
+    .footer a:hover { color: #a78bfa; }
+
+    .footer .sep { color: #333; margin: 0 12px; }
   </style>
 </head>
 <body>
-  <h1>🎶 toneweaver preview</h1>
-  <select id="pack">
-    <option value="singing-bowls">Singing Bowls</option>
-    <option value="crystal-bells">Crystal Bells</option>
-    <option value="soft-keys">Soft Keys</option>
-    <option value="bamboo">Bamboo</option>
-    <option value="celeste">Celeste</option>
-  </select>
-  <div class="buttons">
-    <button class="tone" style="background:#F44A46" onclick="play(0)">1</button>
-    <button class="tone" style="background:#F19607" onclick="play(1)">2</button>
-    <button class="tone" style="background:#F5E619;color:#333" onclick="play(2)">3</button>
-    <button class="tone" style="background:#5FC869" onclick="play(3)">4</button>
-    <button class="tone" style="background:#2BA3D9" onclick="play(4)">5</button>
-    <button class="tone" style="background:#CF6DB2" onclick="play(5)">6</button>
+  <div class="container">
+
+    <div class="header">
+      <div class="logo">toneweaver</div>
+      <p class="tagline">Generate tonal sound packs for games and apps</p>
+    </div>
+
+    <div class="pack-selector">
+      <select id="pack" aria-label="Sound pack">
+        <option value="singing-bowls">Singing Bowls</option>
+        <option value="crystal-bells">Crystal Bells</option>
+        <option value="soft-keys">Soft Keys</option>
+        <option value="bamboo">Bamboo</option>
+        <option value="celeste">Celeste</option>
+      </select>
+    </div>
+
+    <div class="buttons">
+      <button class="tone" style="background:#F44A46" onclick="play(0)" aria-label="Note 1"></button>
+      <button class="tone" style="background:#F19607" onclick="play(1)" aria-label="Note 2"></button>
+      <button class="tone" style="background:#F5E619" onclick="play(2)" aria-label="Note 3"></button>
+      <button class="tone" style="background:#5FC869" onclick="play(3)" aria-label="Note 4"></button>
+      <button class="tone" style="background:#2BA3D9" onclick="play(4)" aria-label="Note 5"></button>
+      <button class="tone" style="background:#CF6DB2" onclick="play(5)" aria-label="Note 6"></button>
+    </div>
+
+    <div class="extras">
+      <button onclick="playSuccess()">Success</button>
+      <button id="ambientBtn" onclick="toggleAmbient()">Ambient</button>
+    </div>
+
+    <p class="hint">Tap the buttons to hear them overlap</p>
+
+    <hr>
+
+    <div class="about">
+      <h2>What is this?</h2>
+      <p>
+        Toneweaver generates musically harmonious sounds built on pentatonic scales,
+        so any combination always sounds pleasant. Each sound pack is a different
+        timbre recipe &mdash; all synthesized from pure math with zero audio dependencies.
+      </p>
+
+      <h2>Sound packs</h2>
+      <div class="packs-list">
+        <div class="pack-item">
+          <div class="name">Singing Bowls</div>
+          <div class="desc">Warm, meditative, shimmering</div>
+        </div>
+        <div class="pack-item">
+          <div class="name">Crystal Bells</div>
+          <div class="desc">Bright, glassy, sparkling</div>
+        </div>
+        <div class="pack-item">
+          <div class="name">Soft Keys</div>
+          <div class="desc">Warm, piano-like, gentle</div>
+        </div>
+        <div class="pack-item">
+          <div class="name">Bamboo</div>
+          <div class="desc">Hollow, woody, quick</div>
+        </div>
+        <div class="pack-item">
+          <div class="name">Celeste</div>
+          <div class="desc">Delicate, music-box sparkle</div>
+        </div>
+        <div class="pack-item">
+          <div class="name">+ Your own</div>
+          <div class="desc">Define a recipe, generate</div>
+        </div>
+      </div>
+
+      <h2>Quick start</h2>
+      <div class="install">
+        <div><span class="comment"># clone and generate all packs</span></div>
+        <div>git clone https://github.com/HamptonMakes/toneweaver</div>
+        <div>cd toneweaver && npm install</div>
+        <div>npx ts-node src/index.ts</div>
+      </div>
+
+      <p>
+        Each pack outputs 6 button tones, a success arpeggio, and a 30-second
+        looping ambient drone &mdash; all as WAV files ready to drop into any
+        game engine.
+      </p>
+    </div>
+
+    <div class="footer">
+      <a href="https://github.com/HamptonMakes/toneweaver">GitHub</a>
+      <span class="sep">&middot;</span>
+      <a href="https://github.com/HamptonMakes/toneweaver/blob/main/README.md">Docs</a>
+      <span class="sep">&middot;</span>
+      <a href="https://github.com/HamptonMakes/toneweaver/blob/main/CHANGELOG.md">Changelog</a>
+    </div>
+
   </div>
-  <div class="extras">
-    <button onclick="playSuccess()">🏆 Success</button>
-    <button id="ambientBtn" onclick="toggleAmbient()">🌊 Ambient</button>
-  </div>
-  <p class="hint">Click buttons to hear them overlap · toggle ambient for background drone</p>
+
   <script>
     let ambientAudio = null;
 
     function play(index) {
       const pack = document.getElementById('pack').value;
-      const audio = new Audio(`output/${pack}/${index}.wav`);
+      const audio = new Audio('output/' + pack + '/' + index + '.wav');
       audio.play();
     }
 
     function playSuccess() {
       const pack = document.getElementById('pack').value;
-      const audio = new Audio(`output/${pack}/success.wav`);
+      const audio = new Audio('output/' + pack + '/success.wav');
       audio.play();
     }
 
@@ -59,26 +345,25 @@
         ambientAudio.pause();
         ambientAudio = null;
         btn.classList.remove('active');
-        btn.textContent = '🌊 Ambient';
+        btn.textContent = 'Ambient';
         return;
       }
       const pack = document.getElementById('pack').value;
-      ambientAudio = new Audio(`output/${pack}/ambient.wav`);
+      ambientAudio = new Audio('output/' + pack + '/ambient.wav');
       ambientAudio.loop = true;
       ambientAudio.volume = 0.4;
       ambientAudio.play();
       btn.classList.add('active');
-      btn.textContent = '🌊 Stop';
+      btn.textContent = 'Stop ambient';
     }
 
-    // Stop ambient when switching packs
-    document.getElementById('pack').addEventListener('change', () => {
+    document.getElementById('pack').addEventListener('change', function() {
       if (ambientAudio) {
         ambientAudio.pause();
         ambientAudio = null;
-        const btn = document.getElementById('ambientBtn');
+        var btn = document.getElementById('ambientBtn');
         btn.classList.remove('active');
-        btn.textContent = '🌊 Ambient';
+        btn.textContent = 'Ambient';
       }
     });
   </script>
