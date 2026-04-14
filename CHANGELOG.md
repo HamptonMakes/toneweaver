@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 — 2026-04-14
+
+### CI/CD
+
+- OIDC trusted publishing — no npm tokens or secrets needed
+- Demo site fully synthesized — zero audio assets in repo
+
 ## 0.3.0 — 2026-04-14
 
 ### Runtime player
