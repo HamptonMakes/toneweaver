@@ -45,13 +45,13 @@ This generates all sound packs as WAV files in `./output/`.
 
 | Pack | Vibe | Root | Duration |
 |------|------|------|----------|
-| `singing-bowls` | Warm, meditative, shimmering | C3 | 3.0s |
-| `crystal-bells` | Bright, glassy, sparkling | G4 | 2.0s |
-| `soft-keys` | Warm, piano-like, gentle | C4 | 1.5s |
-| `bamboo` | Hollow, woody, quick | D4 | 0.8s |
-| `celeste` | Delicate, music-box sparkle | C5 | 1.4s |
+| `singing-bowls` | Warm, meditative, shimmering | C3 | 3.5s |
+| `crystal-bells` | Bright, glassy, sparkling | G4 | 2.5s |
+| `soft-keys` | Warm, piano-like, gentle | C4 | 2.0s |
+| `bamboo` | Hollow, woody, quick | D4 | 1.0s |
+| `celeste` | Delicate, music-box sparkle | C5 | 1.8s |
 
-Each pack generates **6 tones** (pentatonic scale + octave), one per button.
+Each pack produces **6 tones** (pentatonic scale + octave), a **success arpeggio**, and a **30s ambient loop**.
 
 ## Usage
 

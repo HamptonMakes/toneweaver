@@ -22,7 +22,6 @@
       padding: 48px 24px 64px;
     }
 
-    /* Header */
     .header {
       text-align: center;
       margin-bottom: 48px;
@@ -44,19 +43,21 @@
       font-size: 1.05em;
     }
 
-    /* Pack selector */
+    .badge {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: #1a1a2e;
+      border: 1px solid #2a2a44;
+      color: #a78bfa;
+      font-size: 0.78em;
+      letter-spacing: 0.03em;
+    }
+
     .pack-selector {
       text-align: center;
       margin-bottom: 32px;
-    }
-
-    .pack-selector label {
-      display: block;
-      font-size: 0.8em;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #6666880;
-      margin-bottom: 8px;
     }
 
     select {
@@ -74,12 +75,8 @@
       background-position: right 14px center;
     }
 
-    select:focus {
-      outline: none;
-      border-color: #a78bfa;
-    }
+    select:focus { outline: none; border-color: #a78bfa; }
 
-    /* Tone buttons */
     .buttons {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -108,7 +105,6 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
 
-    /* Extra buttons */
     .extras {
       display: flex;
       justify-content: center;
@@ -128,16 +124,8 @@
       transition: all 0.15s ease;
     }
 
-    .extras button:hover {
-      border-color: #4a4a6a;
-      color: #fff;
-    }
-
-    .extras button.active {
-      border-color: #a78bfa;
-      background: #1f1a3e;
-      color: #a78bfa;
-    }
+    .extras button:hover { border-color: #4a4a6a; color: #fff; }
+    .extras button.active { border-color: #a78bfa; background: #1f1a3e; color: #a78bfa; }
 
     .hint {
       text-align: center;
@@ -147,14 +135,8 @@
       margin-bottom: 48px;
     }
 
-    /* Divider */
-    hr {
-      border: none;
-      border-top: 1px solid #1e1e32;
-      margin: 0 0 40px;
-    }
+    hr { border: none; border-top: 1px solid #1e1e32; margin: 0 0 40px; }
 
-    /* About section */
     .about h2 {
       font-size: 1.1em;
       font-weight: 600;
@@ -182,17 +164,8 @@
       padding: 12px 14px;
     }
 
-    .pack-item .name {
-      font-weight: 600;
-      font-size: 0.88em;
-      color: #d0d0e0;
-      margin-bottom: 2px;
-    }
-
-    .pack-item .desc {
-      font-size: 0.78em;
-      color: #666680;
-    }
+    .pack-item .name { font-weight: 600; font-size: 0.88em; color: #d0d0e0; margin-bottom: 2px; }
+    .pack-item .desc { font-size: 0.78em; color: #666680; }
 
     .install {
       background: #14142a;
@@ -208,22 +181,14 @@
 
     .install .comment { color: #555568; }
 
-    /* Footer */
     .footer {
       text-align: center;
       padding-top: 32px;
       border-top: 1px solid #1e1e32;
     }
 
-    .footer a {
-      color: #8888a0;
-      text-decoration: none;
-      font-size: 0.88em;
-      transition: color 0.15s;
-    }
-
+    .footer a { color: #8888a0; text-decoration: none; font-size: 0.88em; transition: color 0.15s; }
     .footer a:hover { color: #a78bfa; }
-
     .footer .sep { color: #333; margin: 0 12px; }
   </style>
 </head>
@@ -233,6 +198,7 @@
     <div class="header">
       <div class="logo">toneweaver</div>
       <p class="tagline">Generate tonal sound packs for games and apps</p>
+      <span class="badge">100% synthesized &mdash; zero audio files</span>
     </div>
 
     <div class="pack-selector">
@@ -246,12 +212,12 @@
     </div>
 
     <div class="buttons">
-      <button class="tone" style="background:#F44A46" onclick="play(0)" aria-label="Note 1"></button>
-      <button class="tone" style="background:#F19607" onclick="play(1)" aria-label="Note 2"></button>
-      <button class="tone" style="background:#F5E619" onclick="play(2)" aria-label="Note 3"></button>
-      <button class="tone" style="background:#5FC869" onclick="play(3)" aria-label="Note 4"></button>
-      <button class="tone" style="background:#2BA3D9" onclick="play(4)" aria-label="Note 5"></button>
-      <button class="tone" style="background:#CF6DB2" onclick="play(5)" aria-label="Note 6"></button>
+      <button class="tone" style="background:#F44A46" onclick="playNote(0)" aria-label="Note 1"></button>
+      <button class="tone" style="background:#F19607" onclick="playNote(1)" aria-label="Note 2"></button>
+      <button class="tone" style="background:#F5E619" onclick="playNote(2)" aria-label="Note 3"></button>
+      <button class="tone" style="background:#5FC869" onclick="playNote(3)" aria-label="Note 4"></button>
+      <button class="tone" style="background:#2BA3D9" onclick="playNote(4)" aria-label="Note 5"></button>
+      <button class="tone" style="background:#CF6DB2" onclick="playNote(5)" aria-label="Note 6"></button>
     </div>
 
     <div class="extras">
@@ -259,7 +225,7 @@
       <button id="ambientBtn" onclick="toggleAmbient()">Ambient</button>
     </div>
 
-    <p class="hint">Tap the buttons to hear them overlap</p>
+    <p class="hint">Every sound on this page is synthesized in real time &mdash; no audio files loaded</p>
 
     <hr>
 
@@ -269,6 +235,7 @@
         Toneweaver generates musically harmonious sounds built on pentatonic scales,
         so any combination always sounds pleasant. Each sound pack is a different
         timbre recipe &mdash; all synthesized from pure math with zero audio dependencies.
+        Use it as a CLI to generate WAV files, or as a runtime library in React Native and web apps.
       </p>
 
       <h2>Sound packs</h2>
@@ -301,17 +268,14 @@
 
       <h2>Quick start</h2>
       <div class="install">
-        <div><span class="comment"># clone and generate all packs</span></div>
+        <div><span class="comment"># runtime (React Native / web)</span></div>
+        <div>npm install toneweaver react-native-audio-api</div>
+        <div>&nbsp;</div>
+        <div><span class="comment"># or generate WAV files</span></div>
         <div>git clone https://github.com/HamptonMakes/toneweaver</div>
         <div>cd toneweaver && npm install</div>
         <div>npx ts-node src/index.ts</div>
       </div>
-
-      <p>
-        Each pack outputs 6 button tones, a success arpeggio, and a 30-second
-        looping ambient drone &mdash; all as WAV files ready to drop into any
-        game engine.
-      </p>
     </div>
 
     <div class="footer">
@@ -320,51 +284,228 @@
       <a href="https://github.com/HamptonMakes/toneweaver/blob/main/README.md">Docs</a>
       <span class="sep">&middot;</span>
       <a href="https://github.com/HamptonMakes/toneweaver/blob/main/CHANGELOG.md">Changelog</a>
+      <span class="sep">&middot;</span>
+      <a href="https://www.npmjs.com/package/toneweaver">npm</a>
     </div>
 
   </div>
 
   <script>
-    let ambientAudio = null;
+    // ── Pack definitions (same as src/packs.ts) ──────────────────────────
+    var PACKS = {
+      'singing-bowls': {
+        rootNote: 130.81, duration: 3.5, lowpassCutoff: 1600,
+        envelope: { attack: 0.06, decay: 0.4, sustain: 0.2, release: 3.0 },
+        partials: [
+          { ratio: 1.0, amplitude: 0.7, phase: 0, decayRate: 0.3 },
+          { ratio: 1.0, amplitude: 0.3, detune: 2, phase: 0.8, decayRate: 0.4 },
+          { ratio: 2.71, amplitude: 0.18, phase: 1.2, decayRate: 1.0 },
+          { ratio: 2.71, amplitude: 0.08, detune: 3, phase: 2.0, decayRate: 1.2 },
+          { ratio: 4.77, amplitude: 0.05, phase: 0.5, decayRate: 2.0 },
+          { ratio: 4.77, amplitude: 0.03, detune: 4, phase: 1.7, decayRate: 2.5 }
+        ]
+      },
+      'crystal-bells': {
+        rootNote: 392.0, duration: 2.5, lowpassCutoff: 3000,
+        envelope: { attack: 0.03, decay: 0.2, sustain: 0.1, release: 2.0 },
+        partials: [
+          { ratio: 1.0, amplitude: 1.0, decayRate: 0.5 },
+          { ratio: 2.0, amplitude: 0.2, decayRate: 1.8 },
+          { ratio: 3.0, amplitude: 0.07, decayRate: 3.0 },
+          { ratio: 4.2, amplitude: 0.025, decayRate: 5.0 }
+        ]
+      },
+      'soft-keys': {
+        rootNote: 261.63, duration: 2.0, lowpassCutoff: 2500,
+        envelope: { attack: 0.02, decay: 0.4, sustain: 0.1, release: 1.4 },
+        partials: [
+          { ratio: 1.0, amplitude: 1.0, decayRate: 0.3 },
+          { ratio: 2.0, amplitude: 0.3, decayRate: 1.0 },
+          { ratio: 3.0, amplitude: 0.1, decayRate: 2.0 },
+          { ratio: 4.0, amplitude: 0.04, decayRate: 3.5 },
+          { ratio: 5.0, amplitude: 0.015, decayRate: 5.0 }
+        ]
+      },
+      'bamboo': {
+        rootNote: 293.66, duration: 1.0, lowpassCutoff: 3500,
+        envelope: { attack: 0.008, decay: 0.15, sustain: 0.03, release: 0.7 },
+        partials: [
+          { ratio: 1.0, amplitude: 1.0, decayRate: 1.0 },
+          { ratio: 3.0, amplitude: 0.12, decayRate: 3.0 },
+          { ratio: 5.0, amplitude: 0.03, decayRate: 5.0 },
+          { ratio: 3.89, amplitude: 0.04, decayRate: 4.0 }
+        ]
+      },
+      'celeste': {
+        rootNote: 523.25, duration: 1.8, lowpassCutoff: 6000,
+        tremoloRate: 5, tremoloDepth: 0.05,
+        envelope: { attack: 0.01, decay: 0.1, sustain: 0.06, release: 1.4 },
+        partials: [
+          { ratio: 1.0, amplitude: 1.0, decayRate: 0.5 },
+          { ratio: 2.0, amplitude: 0.2, decayRate: 2.0 },
+          { ratio: 3.0, amplitude: 0.06, decayRate: 4.0 }
+        ]
+      }
+    };
 
-    function play(index) {
-      const pack = document.getElementById('pack').value;
-      const audio = new Audio('output/' + pack + '/' + index + '.wav');
-      audio.play();
+    // ── Pentatonic scale ─────────────────────────────────────────────────
+    function pentatonic(root) {
+      return [0, 2, 4, 7, 9, 12].map(function(s) {
+        return root * Math.pow(2, s / 12);
+      });
+    }
+
+    // ── Audio engine ─────────────────────────────────────────────────────
+    var ctx = null;
+    var ambientState = null;
+
+    function ensureContext() {
+      if (!ctx) ctx = new AudioContext();
+      if (ctx.state === 'suspended') ctx.resume();
+      return ctx;
+    }
+
+    function getPack() {
+      return PACKS[document.getElementById('pack').value];
+    }
+
+    function synthNote(frequency, pack, startTime) {
+      var ac = ensureContext();
+      var now = startTime || ac.currentTime;
+      var env = pack.envelope;
+      var endTime = now + pack.duration;
+      var attackEnd = now + env.attack;
+      var releaseStart = Math.max(attackEnd + env.decay, endTime - env.release);
+
+      // Optional low-pass filter
+      var output = ac.destination;
+      if (pack.lowpassCutoff) {
+        var filter = ac.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = pack.lowpassCutoff;
+        filter.connect(ac.destination);
+        output = filter;
+      }
+
+      pack.partials.forEach(function(p) {
+        var osc = ac.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = frequency * p.ratio;
+        if (p.detune) osc.detune.value = p.detune;
+
+        // Envelope gain
+        var gain = ac.createGain();
+        var peakAmp = p.amplitude * 0.3;
+        var sustainAmp = Math.max(peakAmp * env.sustain, 0.0001);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(peakAmp, attackEnd);
+        gain.gain.setTargetAtTime(sustainAmp, attackEnd, env.decay / 4);
+        gain.gain.setValueAtTime(sustainAmp, releaseStart);
+        gain.gain.setTargetAtTime(0.0001, releaseStart, env.release / 4);
+
+        // Per-partial decay
+        if (p.decayRate && p.decayRate > 0) {
+          var decayGain = ac.createGain();
+          decayGain.gain.setValueAtTime(1.0, now);
+          decayGain.gain.setTargetAtTime(0.0001, now, 1 / p.decayRate);
+          osc.connect(decayGain);
+          decayGain.connect(gain);
+        } else {
+          osc.connect(gain);
+        }
+
+        gain.connect(output);
+        osc.start(now);
+        osc.stop(endTime + 0.1);
+      });
+    }
+
+    // ── Public API ───────────────────────────────────────────────────────
+    function playNote(index) {
+      var pack = getPack();
+      var freqs = pentatonic(pack.rootNote);
+      if (index >= 0 && index < freqs.length) {
+        synthNote(freqs[index], pack);
+      }
     }
 
     function playSuccess() {
-      const pack = document.getElementById('pack').value;
-      const audio = new Audio('output/' + pack + '/success.wav');
-      audio.play();
+      var pack = getPack();
+      var freqs = pentatonic(pack.rootNote);
+      var ac = ensureContext();
+      var now = ac.currentTime;
+      [0, 2, 4, 5].forEach(function(idx, i) {
+        synthNote(freqs[idx], pack, now + i * 0.15);
+      });
     }
 
     function toggleAmbient() {
-      const btn = document.getElementById('ambientBtn');
-      if (ambientAudio) {
-        ambientAudio.pause();
-        ambientAudio = null;
-        btn.classList.remove('active');
-        btn.textContent = 'Ambient';
+      var btn = document.getElementById('ambientBtn');
+      if (ambientState) {
+        stopAmbient();
         return;
       }
-      const pack = document.getElementById('pack').value;
-      ambientAudio = new Audio('output/' + pack + '/ambient.wav');
-      ambientAudio.loop = true;
-      ambientAudio.volume = 0.4;
-      ambientAudio.play();
+      var ac = ensureContext();
+      var pack = getPack();
+      var freqs = pentatonic(pack.rootNote);
+      var droneFreq = freqs[0] / 2;
+      var fifthFreq = freqs[3] / 2;
+      var now = ac.currentTime;
+
+      var drones = [
+        { freq: droneFreq, amp: 0.35 },
+        { freq: droneFreq * 1.001, amp: 0.25 },
+        { freq: fifthFreq, amp: 0.15 },
+        { freq: fifthFreq * 1.0015, amp: 0.1 },
+        { freq: droneFreq * 2, amp: 0.06 },
+        { freq: droneFreq * 2.002, amp: 0.04 }
+      ];
+
+      var masterGain = ac.createGain();
+      masterGain.gain.setValueAtTime(0, now);
+      masterGain.gain.linearRampToValueAtTime(0.3, now + 2);
+
+      var filter = ac.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 800;
+      filter.connect(masterGain);
+      masterGain.connect(ac.destination);
+
+      var oscs = [];
+      drones.forEach(function(d) {
+        var osc = ac.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = d.freq;
+        var g = ac.createGain();
+        g.gain.value = d.amp;
+        osc.connect(g);
+        g.connect(filter);
+        osc.start(now);
+        oscs.push(osc);
+      });
+
+      ambientState = { oscs: oscs, gain: masterGain };
       btn.classList.add('active');
       btn.textContent = 'Stop ambient';
     }
 
+    function stopAmbient() {
+      if (!ambientState) return;
+      var ac = ensureContext();
+      var now = ac.currentTime;
+      ambientState.gain.gain.setValueAtTime(ambientState.gain.gain.value, now);
+      ambientState.gain.gain.linearRampToValueAtTime(0.0001, now + 1.5);
+      ambientState.oscs.forEach(function(osc) { osc.stop(now + 1.6); });
+      ambientState = null;
+      var btn = document.getElementById('ambientBtn');
+      btn.classList.remove('active');
+      btn.textContent = 'Ambient';
+    }
+
+    // Stop ambient when switching packs
     document.getElementById('pack').addEventListener('change', function() {
-      if (ambientAudio) {
-        ambientAudio.pause();
-        ambientAudio = null;
-        var btn = document.getElementById('ambientBtn');
-        btn.classList.remove('active');
-        btn.textContent = 'Ambient';
-      }
+      if (ambientState) stopAmbient();
     });
   </script>
 </body>
