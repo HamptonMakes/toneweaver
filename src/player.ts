@@ -167,6 +167,17 @@ export class TonePlayer {
     this.ambientNodes = { oscillators, gains };
   }
 
+  /** Set the ambient drone volume (0–1) without restarting. */
+  setAmbientVolume(volume: number): void {
+    if (!this.ambientNodes) return;
+    const ambientGain = this.ambientNodes.gains[this.ambientNodes.gains.length - 1];
+    const clamped = Math.max(0, Math.min(1, volume));
+    // Cancel any scheduled ramps (e.g. the fade-in from startAmbient)
+    // before setting the value, otherwise the automation overrides it.
+    ambientGain.gain.cancelScheduledValues(this.ctx.currentTime);
+    ambientGain.gain.setValueAtTime(clamped, this.ctx.currentTime);
+  }
+
   /** Fade out and stop the ambient drone. */
   stopAmbient(): void {
     if (!this.ambientNodes) return;

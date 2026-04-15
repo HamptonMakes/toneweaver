@@ -1,11 +1,15 @@
 {
   "name": "toneweaver",
-  "version": "0.6.1",
+  "version": "0.6.4",
   "description": "Generate tonal sound packs for games and apps — offline or at runtime",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "player.js",
+    "player.d.ts",
+    "packs.js",
+    "packs.d.ts"
   ],
   "exports": {
     ".": "./dist/index.js",
