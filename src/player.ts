@@ -253,6 +253,12 @@ export class TonePlayer {
     const decayEnd = attackEnd + env.decay;
     const releaseStart = Math.max(decayEnd, endTime - env.release);
 
+    // Tiny offset to work around react-native-audio-api bug where
+    // setTargetAtTime is silently dropped when startTime equals the
+    // previous event's endTime (uses <= instead of <).
+    // See: https://github.com/software-mansion/react-native-audio-api/issues/1025
+    const EPS = 0.0001;
+
     // ADSR envelope using AudioParam scheduling
     gain.gain.setValueAtTime(0.0001, startTime);
 
@@ -263,14 +269,14 @@ export class TonePlayer {
     const sustainAmp = peakAmp * env.sustain;
     gain.gain.setTargetAtTime(
       Math.max(sustainAmp, 0.0001),
-      attackEnd,
+      attackEnd + EPS,
       env.decay / 4 // time constant — reaches ~98% of target in 4x this value
     );
 
     // Release: exponential fade to silence
     // Schedule the release start
     gain.gain.setValueAtTime(Math.max(sustainAmp, 0.0001), releaseStart);
-    gain.gain.setTargetAtTime(0.0001, releaseStart, env.release / 4);
+    gain.gain.setTargetAtTime(0.0001, releaseStart + EPS, env.release / 4);
 
     // Per-partial decay: if this partial has its own decay rate,
     // apply an additional exponential fade
@@ -280,7 +286,7 @@ export class TonePlayer {
       partialDecay.gain.setValueAtTime(1.0, startTime);
       partialDecay.gain.setTargetAtTime(
         0.0001,
-        startTime,
+        startTime + EPS,
         1 / partial.decayRate // convert rate to time constant
       );
 

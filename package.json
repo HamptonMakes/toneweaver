@@ -1,9 +1,12 @@
 {
   "name": "toneweaver",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "description": "Generate tonal sound packs for games and apps — offline or at runtime",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": "./dist/index.js",
     "./player": "./dist/player.js",
@@ -17,7 +20,8 @@
   "scripts": {
     "generate": "ts-node src/index.ts",
     "build": "tsc",
-    "clean": "rm -rf dist output"
+    "clean": "rm -rf dist output",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "sound",
