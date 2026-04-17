@@ -9,143 +9,357 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #0f0f1a;
-      color: #e0e0e8;
+      background: #6C3FD7;
+      color: #1a1a2e;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       line-height: 1.6;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
+    /* Floating background tiles */
+    .bg-tiles {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-tile {
+      position: absolute;
+      border-radius: 22%;
+      opacity: 0.25;
+    }
+
+    .bg-tile-1 { width: 220px; height: 220px; background: #2BA3D9; top: -40px; left: -60px; transform: rotate(25deg); }
+    .bg-tile-2 { width: 180px; height: 180px; background: #F44A46; top: 80px; right: -40px; transform: rotate(-18deg); }
+    .bg-tile-3 { width: 260px; height: 260px; background: #5FC869; bottom: 300px; left: -80px; transform: rotate(35deg); }
+    .bg-tile-4 { width: 200px; height: 200px; background: #F5E619; bottom: 100px; left: 40%; transform: rotate(15deg); }
+    .bg-tile-5 { width: 240px; height: 240px; background: #F19607; bottom: -40px; right: -50px; transform: rotate(-10deg); }
+    .bg-tile-6 { width: 160px; height: 160px; background: #CF6DB2; top: 400px; left: 60px; transform: rotate(-30deg); }
+
     .container {
+      position: relative;
+      z-index: 1;
       max-width: 640px;
       margin: 0 auto;
       padding: 48px 24px 64px;
     }
 
+    /* Unquilt badge - top of page */
+    .unquilt-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      padding: 6px 18px 6px 6px;
+      margin: 0 auto 40px;
+      width: fit-content;
+      color: #fff;
+      font-size: 0.88em;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .unquilt-badge:hover {
+      background: rgba(255,255,255,0.25);
+      transform: scale(1.03);
+    }
+
+    .unquilt-badge-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .unquilt-badge-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .unquilt-badge-text {
+      font-weight: 500;
+    }
+
+    .unquilt-badge-text span {
+      opacity: 0.7;
+    }
+
     .header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
     }
 
     .logo {
-      font-size: 2.4em;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-size: 2.8em;
+      font-weight: 800;
+      letter-spacing: -0.03em;
       margin-bottom: 8px;
-      background: linear-gradient(135deg, #a78bfa, #60a5fa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #fff;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.15);
     }
 
     .tagline {
-      color: #8888a0;
-      font-size: 1.05em;
+      color: rgba(255,255,255,0.8);
+      font-size: 1.1em;
+      font-weight: 400;
     }
 
-    .badge {
+    .synth-badge {
       display: inline-block;
-      margin-top: 12px;
-      padding: 4px 12px;
+      margin-top: 14px;
+      padding: 6px 16px;
       border-radius: 20px;
-      background: #1a1a2e;
-      border: 1px solid #2a2a44;
-      color: #a78bfa;
-      font-size: 0.78em;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 0.8em;
       letter-spacing: 0.03em;
+    }
+
+    /* Cards */
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
     }
 
     .pack-selector {
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
 
     select {
       appearance: none;
-      background: #1a1a2e;
-      color: #e0e0e8;
-      border: 1px solid #2a2a44;
+      background: #f4f0ff;
+      color: #4a28a0;
+      border: 2px solid #e0d6ff;
       padding: 10px 40px 10px 16px;
-      border-radius: 8px;
+      border-radius: 12px;
       font-size: 1em;
+      font-weight: 600;
       font-family: inherit;
       cursor: pointer;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888a0' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236C3FD7' fill='none' stroke-width='2'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 14px center;
+      transition: border-color 0.15s;
     }
 
-    select:focus { outline: none; border-color: #a78bfa; }
+    select:focus { outline: none; border-color: #6C3FD7; }
 
     .buttons {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      max-width: 380px;
-      margin: 0 auto 28px;
+      max-width: 340px;
+      margin: 0 auto 20px;
     }
 
     button.tone {
       aspect-ratio: 1;
       border: none;
-      border-radius: 14px;
+      border-radius: 22%;
       font-size: 0;
       cursor: pointer;
-      transition: transform 0.1s ease, box-shadow 0.15s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      transition: transform 0.12s ease, box-shadow 0.15s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     button.tone:hover {
-      transform: scale(1.04);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      transform: scale(1.06);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     }
 
     button.tone:active {
-      transform: scale(0.94);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      transform: scale(0.92);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
 
     .extras {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 48px;
+      margin-bottom: 8px;
     }
 
     .extras button {
-      background: #1a1a2e;
-      color: #c0c0d0;
-      border: 1px solid #2a2a44;
+      background: #f4f0ff;
+      color: #6C3FD7;
+      border: 2px solid #e0d6ff;
       padding: 10px 22px;
-      border-radius: 8px;
+      border-radius: 12px;
       font-size: 0.9em;
+      font-weight: 600;
       font-family: inherit;
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
-    .extras button:hover { border-color: #4a4a6a; color: #fff; }
-    .extras button.active { border-color: #a78bfa; background: #1f1a3e; color: #a78bfa; }
+    .extras button:hover { border-color: #6C3FD7; background: #ede6ff; }
+    .extras button.active { border-color: #6C3FD7; background: #6C3FD7; color: #fff; }
 
     .hint {
       text-align: center;
-      color: #555568;
+      color: #9888b8;
       font-size: 0.82em;
-      margin-top: -20px;
-      margin-bottom: 48px;
+      margin-top: 8px;
     }
 
-    hr { border: none; border-top: 1px solid #1e1e32; margin: 0 0 40px; }
+    /* Unquilt promo card */
+    .unquilt-promo {
+      background: linear-gradient(145deg, #7B4FE0, #5A2FBF);
+      border-radius: 20px;
+      padding: 32px 28px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+      color: #fff;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
 
+    .promo-floating-tiles {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+    }
+
+    .promo-tile {
+      position: absolute;
+      border-radius: 22%;
+      opacity: 0.15;
+    }
+
+    .promo-tile-1 { width: 100px; height: 100px; background: #F44A46; top: -20px; right: -10px; transform: rotate(20deg); }
+    .promo-tile-2 { width: 80px; height: 80px; background: #5FC869; bottom: -15px; left: -10px; transform: rotate(-25deg); }
+    .promo-tile-3 { width: 60px; height: 60px; background: #F5E619; top: 40px; left: 20px; transform: rotate(35deg); }
+    .promo-tile-4 { width: 70px; height: 70px; background: #2BA3D9; bottom: 10px; right: 30px; transform: rotate(-15deg); }
+
+    .promo-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .promo-eyebrow {
+      font-size: 0.72em;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+
+    .promo-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      margin: 0 auto 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+
+    .promo-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .promo-title {
+      font-size: 1.4em;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .promo-desc {
+      font-size: 0.92em;
+      opacity: 0.85;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .promo-tagline {
+      font-size: 0.82em;
+      opacity: 0.6;
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    /* Game grid preview */
+    .game-preview {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 5px;
+      max-width: 220px;
+      margin: 0 auto 20px;
+      padding: 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 14px;
+    }
+
+    .game-cell {
+      aspect-ratio: 1;
+      border-radius: 22%;
+      transition: transform 0.15s ease;
+    }
+
+    .game-cell:hover { transform: scale(1.1); }
+
+    .store-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .store-buttons a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.88em;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .store-buttons a:hover {
+      background: rgba(255,255,255,0.35);
+      transform: translateY(-1px);
+    }
+
+    .store-buttons a svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* About section */
     .about h2 {
       font-size: 1.1em;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: #c0c0d8;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #3a2070;
     }
 
     .about p {
-      color: #8888a0;
+      color: #5a5080;
       font-size: 0.92em;
       margin-bottom: 16px;
     }
@@ -154,82 +368,126 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
 
     .pack-item {
-      background: #14142a;
-      border: 1px solid #1e1e32;
-      border-radius: 8px;
+      background: #f8f5ff;
+      border: 1px solid #ede6ff;
+      border-radius: 12px;
       padding: 12px 14px;
     }
 
-    .pack-item .name { font-weight: 600; font-size: 0.88em; color: #d0d0e0; margin-bottom: 2px; }
-    .pack-item .desc { font-size: 0.78em; color: #666680; }
+    .pack-item .name { font-weight: 700; font-size: 0.88em; color: #3a2070; margin-bottom: 2px; }
+    .pack-item .desc { font-size: 0.78em; color: #8878a8; }
 
     .install {
-      background: #14142a;
-      border: 1px solid #1e1e32;
-      border-radius: 8px;
+      background: #1e1040;
+      border-radius: 12px;
       padding: 16px 20px;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
       font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-      font-size: 0.85em;
-      color: #a78bfa;
+      font-size: 0.82em;
+      color: #c4b5fd;
       overflow-x: auto;
     }
 
-    .install .comment { color: #555568; }
+    .install .comment { color: #6a5a8a; }
 
     .footer {
       text-align: center;
-      padding-top: 32px;
-      border-top: 1px solid #1e1e32;
+      padding-top: 24px;
     }
 
-    .footer a { color: #8888a0; text-decoration: none; font-size: 0.88em; transition: color 0.15s; }
-    .footer a:hover { color: #a78bfa; }
-    .footer .sep { color: #333; margin: 0 12px; }
+    .footer a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.88em; transition: color 0.15s; }
+    .footer a:hover { color: #fff; }
+    .footer .sep { color: rgba(255,255,255,0.25); margin: 0 12px; }
   </style>
 </head>
 <body>
+  <!-- Background decorative tiles -->
+  <div class="bg-tiles">
+    <div class="bg-tile bg-tile-1"></div>
+    <div class="bg-tile bg-tile-2"></div>
+    <div class="bg-tile bg-tile-3"></div>
+    <div class="bg-tile bg-tile-4"></div>
+    <div class="bg-tile bg-tile-5"></div>
+    <div class="bg-tile bg-tile-6"></div>
+  </div>
+
   <div class="container">
+
+    <!-- Unquilt pill badge at top -->
+    <a class="unquilt-badge" href="https://apps.apple.com/us/app/unquilt/id387175530" target="_blank">
+      <div class="unquilt-badge-icon" id="badgeIcon"></div>
+      <div class="unquilt-badge-text"><span>Powering the sounds of</span> Unquilt</div>
+    </a>
 
     <div class="header">
       <div class="logo">toneweaver</div>
       <p class="tagline">Generate tonal sound packs for games and apps</p>
-      <span class="badge">100% synthesized &mdash; zero audio files</span>
+      <span class="synth-badge">100% synthesized &mdash; zero audio files</span>
     </div>
 
-    <div class="pack-selector">
-      <select id="pack" aria-label="Sound pack">
-        <option value="singing-bowls">Singing Bowls</option>
-        <option value="crystal-bells">Crystal Bells</option>
-        <option value="soft-keys">Soft Keys</option>
-        <option value="bamboo">Bamboo</option>
-        <option value="celeste">Celeste</option>
-      </select>
+    <!-- Interactive demo card -->
+    <div class="card">
+      <div class="pack-selector">
+        <select id="pack" aria-label="Sound pack">
+          <option value="singing-bowls">Singing Bowls</option>
+          <option value="crystal-bells">Crystal Bells</option>
+          <option value="soft-keys">Soft Keys</option>
+          <option value="bamboo">Bamboo</option>
+          <option value="celeste">Celeste</option>
+        </select>
+      </div>
+
+      <div class="buttons">
+        <button class="tone" style="background:#F44A46" onclick="playNote(0)" aria-label="Note 1"></button>
+        <button class="tone" style="background:#F19607" onclick="playNote(1)" aria-label="Note 2"></button>
+        <button class="tone" style="background:#F5E619" onclick="playNote(2)" aria-label="Note 3"></button>
+        <button class="tone" style="background:#5FC869" onclick="playNote(3)" aria-label="Note 4"></button>
+        <button class="tone" style="background:#2BA3D9" onclick="playNote(4)" aria-label="Note 5"></button>
+        <button class="tone" style="background:#CF6DB2" onclick="playNote(5)" aria-label="Note 6"></button>
+      </div>
+
+      <div class="extras">
+        <button onclick="playSuccess()">Success ✨</button>
+        <button id="ambientBtn" onclick="toggleAmbient()">Ambient 🎵</button>
+      </div>
+
+      <p class="hint">Every sound is synthesized in real time &mdash; no audio files loaded</p>
     </div>
 
-    <div class="buttons">
-      <button class="tone" style="background:#F44A46" onclick="playNote(0)" aria-label="Note 1"></button>
-      <button class="tone" style="background:#F19607" onclick="playNote(1)" aria-label="Note 2"></button>
-      <button class="tone" style="background:#F5E619" onclick="playNote(2)" aria-label="Note 3"></button>
-      <button class="tone" style="background:#5FC869" onclick="playNote(3)" aria-label="Note 4"></button>
-      <button class="tone" style="background:#2BA3D9" onclick="playNote(4)" aria-label="Note 5"></button>
-      <button class="tone" style="background:#CF6DB2" onclick="playNote(5)" aria-label="Note 6"></button>
+    <!-- Unquilt promo card -->
+    <div class="unquilt-promo">
+      <div class="promo-floating-tiles">
+        <div class="promo-tile promo-tile-1"></div>
+        <div class="promo-tile promo-tile-2"></div>
+        <div class="promo-tile promo-tile-3"></div>
+        <div class="promo-tile promo-tile-4"></div>
+      </div>
+      <div class="promo-content">
+        <div class="promo-eyebrow">Built for</div>
+        <div class="promo-icon" id="promoIcon"></div>
+        <div class="promo-title">Unquilt</div>
+        <div class="promo-desc">A relaxing color flood puzzle game.<br>Start from the corner, flood the board, capture every cell!</div>
+        <div class="game-preview" id="gamePreview"></div>
+        <div class="promo-tagline">★ 4.9 on the App Store</div>
+        <div class="store-buttons">
+          <a href="https://apps.apple.com/us/app/unquilt/id387175530" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/></svg>
+            App Store
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.hamptoncatlin.unquilt" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302L17.698 13l-2.302-2.302 2.302-2.19zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+            Google Play
+          </a>
+        </div>
+      </div>
     </div>
 
-    <div class="extras">
-      <button onclick="playSuccess()">Success</button>
-      <button id="ambientBtn" onclick="toggleAmbient()">Ambient</button>
-    </div>
-
-    <p class="hint">Every sound on this page is synthesized in real time &mdash; no audio files loaded</p>
-
-    <hr>
-
-    <div class="about">
+    <!-- About card -->
+    <div class="card about">
       <h2>What is this?</h2>
       <p>
         Toneweaver generates musically harmonious sounds built on pentatonic scales,
@@ -250,15 +508,15 @@
         </div>
         <div class="pack-item">
           <div class="name">Soft Keys</div>
-          <div class="desc">Warm, piano-like, gentle</div>
+          <div class="desc">Gentle, rounded, piano-like</div>
         </div>
         <div class="pack-item">
           <div class="name">Bamboo</div>
-          <div class="desc">Hollow, woody, quick</div>
+          <div class="desc">Woody, percussive, crisp</div>
         </div>
         <div class="pack-item">
           <div class="name">Celeste</div>
-          <div class="desc">Delicate, music-box sparkle</div>
+          <div class="desc">Ethereal, bright, shimmering</div>
         </div>
         <div class="pack-item">
           <div class="name">+ Your own</div>
@@ -291,6 +549,64 @@
   </div>
 
   <script>
+    // ── Generate mini game grid ──────────────────────────────────────────
+    (function() {
+      var colors = ['#F44A46', '#F19607', '#F5E619', '#5FC869', '#2BA3D9', '#CF6DB2'];
+      var grid = document.getElementById('gamePreview');
+      for (var i = 0; i < 36; i++) {
+        var cell = document.createElement('div');
+        cell.className = 'game-cell';
+        cell.style.background = colors[Math.floor(Math.random() * colors.length)];
+        grid.appendChild(cell);
+      }
+
+      // Generate app icon canvas for badge and promo
+      function drawIcon(size) {
+        var canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        var cx = canvas.getContext('2d');
+        cx.fillStyle = '#6C3FD7';
+        cx.fillRect(0, 0, size, size);
+        var iconColors = ['#2BA3D9', '#F44A46', '#F5E619', '#F19607', '#5FC869', '#CF6DB2',
+                          '#F44A46', '#5FC869', '#2BA3D9', '#CF6DB2', '#F5E619', '#F19607',
+                          '#F19607', '#CF6DB2', '#5FC869', '#F44A46'];
+        var gap = size * 0.06;
+        var padding = size * 0.12;
+        var cellSize = (size - padding * 2 - gap * 3) / 4;
+        for (var r = 0; r < 4; r++) {
+          for (var c = 0; c < 4; c++) {
+            var x = padding + c * (cellSize + gap);
+            var y = padding + r * (cellSize + gap);
+            var rad = cellSize * 0.28;
+            cx.fillStyle = iconColors[r * 4 + c];
+            cx.beginPath();
+            cx.moveTo(x + rad, y);
+            cx.lineTo(x + cellSize - rad, y);
+            cx.quadraticCurveTo(x + cellSize, y, x + cellSize, y + rad);
+            cx.lineTo(x + cellSize, y + cellSize - rad);
+            cx.quadraticCurveTo(x + cellSize, y + cellSize, x + cellSize - rad, y + cellSize);
+            cx.lineTo(x + rad, y + cellSize);
+            cx.quadraticCurveTo(x, y + cellSize, x, y + cellSize - rad);
+            cx.lineTo(x, y + rad);
+            cx.quadraticCurveTo(x, y, x + rad, y);
+            cx.fill();
+          }
+        }
+        return canvas;
+      }
+
+      var badgeIcon = drawIcon(68);
+      document.getElementById('badgeIcon').appendChild(badgeIcon);
+      badgeIcon.style.width = '100%';
+      badgeIcon.style.height = '100%';
+
+      var promoIconEl = drawIcon(144);
+      document.getElementById('promoIcon').appendChild(promoIconEl);
+      promoIconEl.style.width = '100%';
+      promoIconEl.style.height = '100%';
+    })();
+
     // ── Pack definitions (same as src/packs.ts) ──────────────────────────
     var PACKS = {
       'singing-bowls': {
@@ -377,7 +693,6 @@
       var attackEnd = now + env.attack;
       var releaseStart = Math.max(attackEnd + env.decay, endTime - env.release);
 
-      // Optional low-pass filter
       var output = ac.destination;
       if (pack.lowpassCutoff) {
         var filter = ac.createBiquadFilter();
@@ -393,7 +708,6 @@
         osc.frequency.value = frequency * p.ratio;
         if (p.detune) osc.detune.value = p.detune;
 
-        // Envelope gain
         var gain = ac.createGain();
         var peakAmp = p.amplitude * 0.3;
         var sustainAmp = Math.max(peakAmp * env.sustain, 0.0001);
@@ -404,7 +718,6 @@
         gain.gain.setValueAtTime(sustainAmp, releaseStart);
         gain.gain.setTargetAtTime(0.0001, releaseStart, env.release / 4);
 
-        // Per-partial decay
         if (p.decayRate && p.decayRate > 0) {
           var decayGain = ac.createGain();
           decayGain.gain.setValueAtTime(1.0, now);
@@ -487,7 +800,7 @@
 
       ambientState = { oscs: oscs, gain: masterGain };
       btn.classList.add('active');
-      btn.textContent = 'Stop ambient';
+      btn.textContent = 'Stop ambient 🎵';
     }
 
     function stopAmbient() {
@@ -500,10 +813,9 @@
       ambientState = null;
       var btn = document.getElementById('ambientBtn');
       btn.classList.remove('active');
-      btn.textContent = 'Ambient';
+      btn.textContent = 'Ambient 🎵';
     }
 
-    // Stop ambient when switching packs
     document.getElementById('pack').addEventListener('change', function() {
       if (ambientState) stopAmbient();
     });
